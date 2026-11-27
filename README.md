@@ -2,7 +2,7 @@
 
 Официальный сайт детского центра «Семицвіт» (Запорожье, ул. Украинская, 4) с системой управления контентом.
 
-**Сайт:** https://zavars296-cyber.github.io/semitsvetik/ · **Админка:** https://zavars296-cyber.github.io/semitsvetik/admin/
+**Сайт:** https://semitsvetik.vercel.app/ · **Админка:** https://semitsvetik.vercel.app/admin/ (копия на GitHub Pages: https://zavars296-cyber.github.io/semitsvetik/)
 
 ## Архитектура
 
