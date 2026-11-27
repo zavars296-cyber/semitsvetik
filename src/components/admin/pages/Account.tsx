@@ -13,6 +13,7 @@ export function Account() {
   const [pw, setPw] = useState('');
   const [pw2, setPw2] = useState('');
   const [busy, setBusy] = useState(false);
+  const [mustSet] = useState(() => { try { return sessionStorage.getItem('semitsvit-set-password') === '1'; } catch { return false; } });
 
   async function saveName() {
     try { await update('profiles', auth.profile!.id, { full_name: name.trim() }); toast('Збережено'); auth.refresh(); } catch (e: any) { toast(e.message, 'error'); }
@@ -30,6 +31,7 @@ export function Account() {
   return (
     <div className="max-w-xl">
       <PageTitle title="Мій профіль" text={`${auth.email || ''} · ${roleLabel[auth.profile!.role]}`} />
+      {mustSet && <p className="mb-5 rounded-2xl bg-yellow-soft p-4 text-sm font-medium text-yellow-deep">Придумайте пароль (від 10 символів) нижче — з ним ви входитимете в адмін-панель.</p>}
       <div className="card space-y-4 p-6">
         <div><label className="label" htmlFor="nm">Ім’я та прізвище</label><input id="nm" className="input" value={name} onChange={(e) => setName(e.target.value)} /></div>
         <button className="btn-primary" onClick={saveName}>Зберегти ім’я</button>

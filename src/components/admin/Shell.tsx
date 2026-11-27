@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, type ReactNode } from 'react';
 import { AuthProvider, roleLabel, useAuth } from '@/lib/admin/auth';
 import { DEMO, demoReset } from '@/lib/admin/db';
@@ -31,8 +31,14 @@ const items: Item[] = [
 function Gate({ children }: { children: ReactNode }) {
   const auth = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
   const [menu, setMenu] = useState(false);
   useEffect(() => setMenu(false), [pathname]);
+  useEffect(() => {
+    let needs = false;
+    try { needs = sessionStorage.getItem('semitsvit-set-password') === '1'; } catch {}
+    if (needs && auth.profile && !pathname?.includes('/admin/account')) router.replace('/admin/account/');
+  }, [auth.profile, pathname, router]);
 
   if (auth.loading) return <div className="container-x"><Spinner /></div>;
   if (!auth.profile) return <Login />;

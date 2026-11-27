@@ -71,9 +71,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    // Links from invitation / password-reset emails: remember that the user must set a password.
+    if (!DEMO && /type=(invite|recovery)/.test(window.location.hash)) {
+      try { sessionStorage.setItem('semitsvit-set-password', '1'); } catch {}
+    }
     load();
     if (DEMO) return;
     const { data } = getSupabase()!.auth.onAuthStateChange((evt) => {
+      if (evt === 'PASSWORD_RECOVERY') { try { sessionStorage.setItem('semitsvit-set-password', '1'); } catch {} }
       if (evt === 'SIGNED_IN' || evt === 'SIGNED_OUT' || evt === 'USER_UPDATED') load();
     });
     return () => data.subscription.unsubscribe();
