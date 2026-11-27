@@ -1,0 +1,29 @@
+{
+  "name": "semitsvetik",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "snapshot": "node scripts/snapshot.mjs",
+    "dev": "next dev",
+    "build": "node scripts/snapshot.mjs && next build",
+    "start": "npx serve out",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.119.2",
+    "framer-motion": "11.18.2",
+    "next": "15.5.29",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "autoprefixer": "10.4.20",
+    "postcss": "8.4.49",
+    "tailwindcss": "3.4.19",
+    "typescript": "5.7.2"
+  }
+}
