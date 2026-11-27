@@ -1,7 +1,9 @@
 // Generates supabase/seed.sql from src/content/seed.json (initial verified content).
 import { readFileSync, writeFileSync } from 'node:fs';
 const seed = JSON.parse(readFileSync(new URL('../src/content/seed.json', import.meta.url)));
-const q = (v) => v === null || v === undefined ? 'null' : `'${String(v).replace(/'/g, "''")}'`;
+// E'' strings with escaped newlines keep every statement on ONE line (safe for copy-paste on phones).
+const q = (v) => v === null || v === undefined ? 'null'
+  : `E'${String(v).replace(/\\/g, '\\\\').replace(/'/g, "''").replace(/\r/g, '').replace(/\n/g, '\\n')}'`;
 const arr = (a) => `array[${a.map(q).join(',')}]::text[]`;
 let out = `-- Initial content for «Семицвіт». Run AFTER migrations/0001_init.sql.\n-- Only verified facts are published; unconfirmed programs are inserted as drafts.\n\n`;
 out += `update public.site_settings set data = ${q(JSON.stringify(seed.settings))}::jsonb where id = 1 and data = '{}'::jsonb;\n\n`;

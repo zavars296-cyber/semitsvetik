@@ -27,13 +27,13 @@ src/
 supabase/
   migrations/        схема, роли, RLS, хранилище
   seed.sql           стартовый контент
-  setup.sql          migrations + seed одним файлом (для SQL Editor)
+  setup-1/2-*.sql    компактные файлы для вставки в SQL Editor
   tests/             локальный тест прав (27 проверок)
 ```
 
 ## Запуск базы (один раз, ~5 минут)
 
-1. Supabase → **SQL Editor** → New query → вставить весь файл [`supabase/setup.sql`](supabase/setup.sql) → **Run**. Файл можно запускать повторно, данные не затираются.
+1. Supabase → **SQL Editor** → New query → вставить весь файл [`supabase/setup-1-schema.sql`](supabase/setup-1-schema.sql) → **Run** (ответ `STEP 1 OK`). Затем так же [`supabase/setup-2-content.sql`](supabase/setup-2-content.sql) (`STEP 2 OK`). Файлы можно запускать повторно, данные не затираются.
 2. **Authentication → Users → Add user → Create new user**: email и пароль владельца (от 10 символов), галочка **Auto Confirm User**.
 3. Снова SQL Editor: `select public.make_owner('email@владельца');` → Run. Ответ `OK: ...`.
 4. **Authentication → URL Configuration → Site URL**: `https://zavars296-cyber.github.io/semitsvetik/admin/` (нужно для писем подтверждения и сброса пароля).
