@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://zavars296-cyber.github.io/semitsvetik/sitemap.xml
